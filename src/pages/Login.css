@@ -1,0 +1,41 @@
+.login-container{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f8f3;
+}
+
+.cadastro-box{
+    width: 350px;
+    padding: 35;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.cadastro-box h1{
+    text-align: center;
+    color: #2e7d32;
+}
+
+.cadastro-box h2{
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.cadastro-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-box label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login-box input {
+    padding: 12px;
+    margin-bottom: 18px;
+
+}
