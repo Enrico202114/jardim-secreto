@@ -1,25 +1,33 @@
 import "./Login.css";
 
-export default function Login() {
-    return (
-        <div className="login-container">
-            <div className="login-box">
-                <h1>Jardim Secreto</h1>
-                <h2>Entrar</h2>
+function Login({ mudarTela }) {
+  return (
+    <div className="container">
+      <div className="login-box">
+        <h1>Login</h1>
+        <p>Entre na sua conta</p>
 
-                <form>
-                    <label>E-mail</label>
-                    <input type= "email" placeholder="Digite seu e-mail" />
-                
-                <label>Senha</label>
-                <input type="password" placeholder="Digite sua senha" />
+        <form>
+          <input type="email"
+            placeholder="Digite seu e-mail"
+          />
 
-                <button type="submit">Entrar</button>
-                </form>
+          <input type="password"
+            placeholder="Digite sua senha"
+          />
 
-                <p>Não possui uma conta? <a href="/cadastro">Cadastra-se</a></p>
+          <button type="submit">Entrar</button>
+        </form>
 
-            </div>
-        </div>
-    );
+        <p className="cadastro-link">
+          Ainda não tem uma conta?{" "}
+          <span onClick={() => mudarTela("cadastro")}>
+            Cadastre-se
+          </span>
+        </p>
+      </div>
+    </div>
+  );
 }
+
+export default Login;
