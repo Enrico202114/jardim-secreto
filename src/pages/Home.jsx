@@ -4,15 +4,14 @@ import Produtos from "../components/Produtos";
 import Frase from "../components/Frase";
 import Footer from "../components/Footer";
 
-
 function Home() {
     return (
         <>
-        <Navbar />
-        <Hero />
-        <Produtos />
-        <Frase />
-        <Footer />
+            <Navbar />
+            <Hero/>
+            <Produtos/>
+            <Frase/>
+            <Footer/>
         </>
     );
 }
