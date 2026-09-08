@@ -1,7 +1,49 @@
-import { Link } from "react-router";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router";
+import api from "../services/api";
 import "./Login.css";
 
 function Login() {
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [erro, setErro] = useState("");
+    const [carregando, setCarregando] = useState(false);
+
+    async function fazerLogin(event) {
+        event.preventDefault();
+        setErro("");
+
+        if (!email || !senha) {
+            setErro("Digite seu e-mail e sua senha.");
+            return;
+        }
+
+        setCarregando(true);
+
+        try {
+            const resposta = await api.post("/users/login", {
+                email,
+                password: senha,
+            });
+
+            localStorage.setItem("token", resposta.data.token);
+            navigate("/home");
+        } catch (error) {
+            if (error.response) {
+                setErro(
+                    error.response.data?.message ||
+                    "E-mail ou senha inválidos."
+                );
+            } else {
+                setErro("Não foi possível conectar à API.");
+            }
+        } finally {
+            setCarregando(false);
+        }
+    }
+
     return (
         <main className="login">
 
@@ -11,7 +53,7 @@ function Login() {
 
                     <h2>Entre na sua conta</h2>
 
-                    <form>
+                    <form onSubmit={fazerLogin}>
 
                         <div className="campo">
                             <label htmlFor="email">
@@ -22,6 +64,8 @@ function Login() {
                                 type="email"
                                 id="email"
                                 placeholder="Digite seu e-mail"
+                                value={email}
+                                onChange={(event) => setEmail(event.target.value)}
                             />
                         </div>
 
@@ -34,22 +78,29 @@ function Login() {
                                 type="password"
                                 id="senha"
                                 placeholder="Digite sua senha"
+                                value={senha}
+                                onChange={(event) => setSenha(event.target.value)}
                             />
                         </div>
 
                         <div className="opcoes-login">
-
                             <Link to="/recuperar-senha">
                                 Esqueci minha senha
                             </Link>
-
                         </div>
+
+                        {erro && (
+                            <p className="mensagem-erro">
+                                {erro}
+                            </p>
+                        )}
 
                         <button
                             type="submit"
                             className="botao-login"
+                            disabled={carregando}
                         >
-                            Entrar
+                            {carregando ? "Entrando..." : "Entrar"}
                         </button>
 
                     </form>
